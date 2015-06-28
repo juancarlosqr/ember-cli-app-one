@@ -1,0 +1,33 @@
+Ember CLI installation issues
+-----------------------------
+when installing ember-cli and running 'ember server' throw next error:
+
+> ember server
+
+Could not find watchman, falling back to NodeWatcher for file system events.
+Visit http://www.ember-cli.com/#watchman for more info.
+
+after this, i installed watchman:
+http://www.ember-cli.com/#watchman
+https://facebook.github.io/watchman
+http://choorucode.com/2015/02/10/how-to-install-and-use-watchman/
+
+after running server again:
+> ember server
+
+Error: A non-recoverable condition has triggered.  Watchman needs your help!
+The triggering condition was at timestamp=1435519626: inotify-add-watch(/home/juancarlosqr/code/ember-cli-app-one) -> The user limit on the total number of inotify watches was reached; increase the fs.inotify.max_user_watches sysctl
+
+about this:
+https://facebook.github.io/watchman/docs/troubleshooting.html#poison-inotify-add-watch
+https://facebook.github.io/watchman/docs/install.html#system-specific-preparation
+http://askubuntu.com/questions/353041/how-to-change-value-of-proc-sys-fs-inotify-max-user-watches
+
+the original value was:
+> cat /proc/sys/fs/inotify/max_user_watches
+8192
+
+after changing this value to 10000, gives no error:
+
+> ember server
+;-)
