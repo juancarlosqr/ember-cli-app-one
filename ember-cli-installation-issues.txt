@@ -21,13 +21,16 @@ The triggering condition was at timestamp=1435519626: inotify-add-watch(/home/ju
 about this:
 https://facebook.github.io/watchman/docs/troubleshooting.html#poison-inotify-add-watch
 https://facebook.github.io/watchman/docs/install.html#system-specific-preparation
+https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers
 http://askubuntu.com/questions/353041/how-to-change-value-of-proc-sys-fs-inotify-max-user-watches
 
 the original value was:
 > cat /proc/sys/fs/inotify/max_user_watches
 8192
 
-after changing this value to 10000, gives no error:
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+
+after changing this value to 524288, gives no error:
 
 > ember server
 ;-)
